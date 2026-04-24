@@ -1,139 +1,101 @@
+@import "tailwindcss";
+
 :root {
   --bg-primary: #0a0a0a;
   --bg-secondary: #141414;
   --bg-tertiary: #1f1f1f;
   --text-primary: #f0f0f0;
   --text-secondary: #a0a0a0;
-  --accent-blue: #00A0FE;
+  --accent-blue: #00a0fe;
   --accent-blue-hover: #008be5;
   --danger: #ff4d4d;
   --danger-hover: #e60000;
   --success: #00cc66;
+  --success-hover: #00b359;
+  --warning: #ffa500;
   --border-color: #2a2a2a;
-  
-  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-surface: var(--bg-secondary);
+  --color-surface-strong: var(--bg-tertiary);
+  --color-foreground: var(--text-primary);
+  --color-muted: var(--text-secondary);
+  --color-accent: var(--accent-blue);
+  --color-accent-hover: var(--accent-blue-hover);
+  --color-border: var(--border-color);
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+  --color-success: var(--success);
+  --color-success-hover: var(--success-hover);
+  --font-sans: var(--font-family);
 }
 
 body {
+  min-height: 100vh;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-family);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  color: var(--accent-blue);
+  color: inherit;
   text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
 }
 
 button {
   cursor: pointer;
-  border: none;
-  background: none;
-  font-family: inherit;
-  color: inherit;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: inherit;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
   outline: none;
 }
 
-input:focus, select:focus, textarea:focus {
-  border-color: var(--accent-blue);
-}
-
 .btn-primary {
-  background-color: var(--accent-blue);
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.btn-primary:hover {
-  background-color: var(--accent-blue-hover);
-  text-decoration: none;
+  @apply inline-flex items-center justify-center rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60;
 }
 
 .btn-danger {
-  background-color: var(--danger);
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.btn-danger:hover {
-  background-color: var(--danger-hover);
+  @apply inline-flex items-center justify-center rounded-lg bg-danger px-4 py-2 text-sm font-semibold text-white transition hover:bg-danger-hover disabled:cursor-not-allowed disabled:opacity-60;
 }
 
 .btn-success {
-  background-color: var(--success);
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.btn-success:hover {
-  background-color: #00b359;
+  @apply inline-flex items-center justify-center rounded-lg bg-success px-4 py-2 text-sm font-semibold text-white transition hover:bg-success-hover disabled:cursor-not-allowed disabled:opacity-60;
 }
 
 .card {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1.5rem;
+  @apply rounded-2xl border border-border bg-surface p-6 shadow-[0_18px_60px_rgba(0,0,0,0.28)];
 }
 
-/* Tables */
 table {
-  width: 100%;
-  border-collapse: collapse;
+  @apply w-full border-collapse;
 }
 
-th, td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid var(--border-color);
+th,
+td {
+  @apply border-b border-border px-4 py-3 text-left;
 }
 
 th {
-  background-color: var(--bg-tertiary);
-  color: var(--text-secondary);
-  font-weight: 500;
+  @apply bg-surface-strong text-sm font-medium text-muted;
 }
 
 tr:hover td {
   background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* Badge */
 .badge {
-  padding: 0.25rem 0.5rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: bold;
+  @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold;
 }
 
 .badge-success {
@@ -143,7 +105,7 @@ tr:hover td {
 
 .badge-warning {
   background-color: rgba(255, 165, 0, 0.1);
-  color: #ffa500;
+  color: var(--warning);
 }
 
 .badge-danger {

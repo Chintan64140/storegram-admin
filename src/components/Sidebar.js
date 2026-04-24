@@ -12,6 +12,7 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     Cookies.remove('adminToken');
+    Cookies.remove('adminUser');
     router.push('/login');
   };
 
@@ -26,28 +27,26 @@ export default function Sidebar() {
   ];
 
   return (
-    <div style={{ width: '250px', backgroundColor: 'var(--bg-secondary)', borderRight: '1px solid var(--border-color)', height: '100vh', position: 'fixed', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ padding: '20px', borderBottom: '1px solid var(--border-color)' }}>
-        <h2 style={{ color: 'var(--accent-blue)', margin: 0 }}>StoreGram Admin</h2>
+    <aside className="fixed inset-y-0 left-0 hidden w-[250px] flex-col border-r border-border bg-surface md:flex">
+      <div className="border-b border-border px-5 py-6">
+        <h2 className="text-xl font-semibold tracking-tight text-accent">StoreGram Admin</h2>
       </div>
-      <div style={{ padding: '20px', flex: 1 }}>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+      <div className="flex-1 px-4 py-6">
+        <ul className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.path || (item.path !== '/' && pathname.startsWith(item.path));
             return (
-              <li key={item.path} style={{ marginBottom: '10px' }}>
-                <Link href={item.path} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '10px',
-                  borderRadius: '6px',
-                  color: isActive ? '#fff' : 'var(--text-secondary)',
-                  backgroundColor: isActive ? 'var(--accent-blue)' : 'transparent',
-                  textDecoration: 'none',
-                  transition: 'background-color 0.2s',
-                }}>
-                  <Icon size={20} style={{ marginRight: '10px' }} />
+              <li key={item.path}>
+                <Link
+                  href={item.path}
+                  className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
+                    isActive
+                      ? 'bg-accent text-white shadow-[0_10px_30px_rgba(0,160,254,0.22)]'
+                      : 'text-muted hover:bg-white/5 hover:text-foreground'
+                  }`}
+                >
+                  <Icon size={20} />
                   {item.name}
                 </Link>
               </li>
@@ -55,12 +54,15 @@ export default function Sidebar() {
           })}
         </ul>
       </div>
-      <div style={{ padding: '20px', borderTop: '1px solid var(--border-color)' }}>
-        <button onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', color: 'var(--danger)', width: '100%', padding: '10px', borderRadius: '6px' }}>
-          <LogOut size={20} style={{ marginRight: '10px' }} />
+      <div className="border-t border-border px-4 py-5">
+        <button
+          onClick={handleLogout}
+          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-danger transition hover:bg-danger/10"
+        >
+          <LogOut size={20} />
           Logout
         </button>
       </div>
-    </div>
+    </aside>
   );
 }

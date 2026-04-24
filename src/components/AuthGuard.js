@@ -39,8 +39,8 @@ export default function AuthGuard({ children }) {
 
   if (!isAuthorized) {
     return (
-      <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'var(--bg-primary)' }}>
-        <p style={{ color: 'var(--accent-blue)' }}>Loading...</p>
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <p className="text-sm font-medium text-accent">Loading...</p>
       </div>
     );
   }

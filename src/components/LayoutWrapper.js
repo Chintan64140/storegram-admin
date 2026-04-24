@@ -7,16 +7,19 @@ export default function LayoutWrapper({ children }) {
   const isLoginPage = pathname === '/login';
 
   return (
-    <>
+    <div className="min-h-screen w-full bg-background">
       <Sidebar />
-      <main style={{ 
-        flex: 1, 
-        marginLeft: isLoginPage ? '0' : '250px', 
-        minHeight: '100vh', 
-        padding: isLoginPage ? '0' : '2rem' 
-      }}>
-        {children}
+      <main
+        className={
+          isLoginPage
+            ? 'min-h-screen w-full'
+            : 'min-h-screen w-full md:pl-[250px]'
+        }
+      >
+        <div className={isLoginPage ? 'min-h-screen' : 'min-h-screen p-4 md:p-8'}>
+          {children}
+        </div>
       </main>
-    </>
+    </div>
   );
 }

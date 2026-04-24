@@ -1,9 +1,9 @@
 'use client';
-import { useState } from 'next/navigation';
+
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import api from '@/utils/api';
 import Cookies from 'js-cookie';
+import api from '@/utils/api';
 
 export default function Login() {
   const [email, setEmail] = React.useState('');
@@ -12,8 +12,8 @@ export default function Login() {
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (event) => {
+    event.preventDefault();
     setError('');
     setLoading(true);
 
@@ -29,7 +29,6 @@ export default function Login() {
 
       Cookies.set('adminToken', token, { expires: 7 });
       Cookies.set('adminUser', JSON.stringify(user), { expires: 7 });
-      
       router.push('/');
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed. Please check credentials.');
@@ -39,53 +38,54 @@ export default function Login() {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh',
-      backgroundColor: 'var(--bg-primary)'
-    }}>
-      <div className="card" style={{ width: '400px' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--accent-blue)' }}>
-          StoreGram Admin
-        </h2>
+    <div className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(0,160,254,0.18),_transparent_35%),linear-gradient(180deg,_#0a0a0a_0%,_#070707_100%)] px-6">
+      <div className="card w-full max-w-sm border-white/10 bg-surface/95 shadow-[0_24px_80px_rgba(0,0,0,0.42)] backdrop-blur-sm">
+        <div className="mb-8 text-center">
+          <p className="text-sm uppercase tracking-[0.32em] text-muted">Admin Portal</p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-accent">
+            StoreGram Admin
+          </h1>
+          <p className="mt-3 text-sm text-muted">
+            Sign in to manage publishers, files, storage, and withdrawals.
+          </p>
+        </div>
+
         {error && (
-          <div style={{ 
-            backgroundColor: 'rgba(255, 77, 77, 0.1)', 
-            color: 'var(--danger)', 
-            padding: '10px', 
-            borderRadius: '4px', 
-            marginBottom: '1rem',
-            fontSize: '0.9rem'
-          }}>
+          <div className="mb-4 rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
             {error}
           </div>
         )}
-        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+
+        <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Email</label>
-            <input 
-              type="email" 
+            <label className="mb-2 block text-sm font-medium text-muted">Email</label>
+            <input
+              type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
               required
-              style={{ width: '100%' }}
+              className="w-full rounded-xl border border-border bg-surface-strong px-4 py-3 text-sm text-foreground transition placeholder:text-muted/70 focus:border-accent"
               placeholder="admin@storegram.com"
             />
           </div>
+
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Password</label>
-            <input 
-              type="password" 
+            <label className="mb-2 block text-sm font-medium text-muted">Password</label>
+            <input
+              type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(event) => setPassword(event.target.value)}
               required
-              style={{ width: '100%' }}
-              placeholder="••••••••"
+              className="w-full rounded-xl border border-border bg-surface-strong px-4 py-3 text-sm text-foreground transition placeholder:text-muted/70 focus:border-accent"
+              placeholder="Enter your password"
             />
           </div>
-          <button type="submit" className="btn-primary" disabled={loading} style={{ marginTop: '1rem', padding: '0.75rem' }}>
+
+          <button
+            type="submit"
+            className="btn-primary mt-2 w-full rounded-xl px-4 py-3 text-sm"
+            disabled={loading}
+          >
             {loading ? 'Logging in...' : 'Login to Dashboard'}
           </button>
         </form>
