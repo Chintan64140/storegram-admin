@@ -86,16 +86,11 @@ export default function Publishers() {
               <tr key={pub.id}>
                 <td>{pub.name}</td>
                 <td>{pub.email}</td>
-                {/* <td>{pub.mobile || 'N/A'}</td> */}
                 <td>{pub.referral_code || 'N/A'}</td>
                 <td>{formatCurrency(pub.wallet_balance)}</td>
-                {/* <td>{formatMB(getStorageUsedMB(pub))}</td>
-                <td>{formatMB(getStorageTotalMB(pub), 0)}</td> */}
-                {/* <td>{pub.stats?.totalFiles || 0}</td> */}
+               
                 <td>{pub.stats?.totalViews || 0}</td>
                 <td>{formatCurrency(pub.stats?.totalEarnings)}</td>
-                {/* <td>{pub.stats?.pendingWithdrawals || 0}</td>
-                <td>{pub.stats?.approvedWithdrawals || 0}</td> */}
                 <td>
                   {pub.is_approved ? (
                     <span className="badge badge-success">Approved</span>
