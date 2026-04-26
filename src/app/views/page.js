@@ -1,4 +1,6 @@
 'use client';
+import Loader from '@/components/Loader';
+
 import { useEffect, useState } from 'react';
 import api from '@/utils/api';
 import { MapPin, Monitor } from 'lucide-react';
@@ -35,7 +37,7 @@ export default function Views() {
     return () => window.clearTimeout(timeoutId);
   }, [page, limit]);
 
-  if (loading) return <div>Loading views...</div>;
+  if (loading) return <Loader text="Loading views..." />;
 
   return (
     <div>

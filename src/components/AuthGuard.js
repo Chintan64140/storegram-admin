@@ -40,9 +40,8 @@ export default function AuthGuard({ children }) {
   if (!isAuthorized) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
-        <p className="text-sm font-medium text-accent">Loading...</p>
-      </div>
-    );
+        <Loader text="Loading..." />
+      </div>);
   }
 
   return children;

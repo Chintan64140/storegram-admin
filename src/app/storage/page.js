@@ -1,4 +1,6 @@
 'use client';
+import Loader from '@/components/Loader';
+
 import { useEffect, useState } from 'react';
 import api from '@/utils/api';
 import { Plus, Minus } from 'lucide-react';
@@ -49,7 +51,7 @@ export default function Storage() {
     }
   };
 
-  if (loading) return <div>Loading storage allocations...</div>;
+  if (loading) return <Loader text="Loading storage allocations..." />;
 
   return (
     <div>

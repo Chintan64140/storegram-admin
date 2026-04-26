@@ -1,4 +1,6 @@
 'use client';
+import Loader from '@/components/Loader';
+
 import { useEffect, useState } from 'react';
 import api from '@/utils/api';
 import { Ban, CheckCircle } from 'lucide-react';
@@ -58,7 +60,7 @@ export default function Users() {
     }
   };
 
-  if (loading) return <div>Loading users...</div>;
+  if (loading) return <Loader text="Loading users..." />;
 
   return (
     <div>

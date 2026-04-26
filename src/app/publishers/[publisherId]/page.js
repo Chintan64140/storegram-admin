@@ -1,4 +1,6 @@
 'use client';
+import Loader from '@/components/Loader';
+
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -73,9 +75,7 @@ export default function PublisherDetailsPage() {
     return () => window.clearTimeout(timeoutId);
   }, [publisherId, filesPage, filesLimit, viewsPage, viewsLimit, transactionsPage, transactionsLimit, referredUsersPage, referredUsersLimit]);
 
-  if (loading) {
-    return <div>Loading publisher details...</div>;
-  }
+  if (loading) return <Loader text="Loading publisher details..." />;
 
   if (error) {
     return (

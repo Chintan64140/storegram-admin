@@ -1,4 +1,6 @@
 'use client';
+import Loader from '@/components/Loader';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import api from '@/utils/api';
@@ -48,7 +50,7 @@ export default function Publishers() {
     }
   };
 
-  if (loading) return <div>Loading publishers...</div>;
+  if (loading) return <Loader text="Loading publishers..." />;
 
   return (
     <div>

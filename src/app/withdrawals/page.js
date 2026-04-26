@@ -1,4 +1,6 @@
 'use client';
+import Loader from '@/components/Loader';
+
 import { useEffect, useState } from 'react';
 import api from '@/utils/api';
 import { CheckCircle, XCircle, CreditCard, Wallet, Clock3 } from 'lucide-react';
@@ -60,7 +62,7 @@ export default function Withdrawals() {
     }
   };
 
-  if (loading) return <div>Loading withdrawals...</div>;
+  if (loading) return <Loader text="Loading withdrawals..." />;
 
   const approvedWithdrawals = transactions.filter((transaction) => transaction.status === 'APPROVED' && Number(transaction.amount) < 0);
   const approvedPayoutAmount = approvedWithdrawals.reduce((sum, transaction) => sum + Math.abs(Number(transaction.amount || 0)), 0);

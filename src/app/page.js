@@ -1,4 +1,6 @@
 'use client';
+import Loader from '@/components/Loader';
+
 import { useEffect, useState } from 'react';
 import api from '@/utils/api';
 import { Users, FileText, Eye, CreditCard, HardDrive, BarChart3, Wallet, UserCheck } from 'lucide-react';
@@ -44,9 +46,7 @@ export default function Dashboard() {
     return () => window.clearTimeout(timeoutId);
   }, []);
 
-  if (loading) {
-    return <div>Loading dashboard...</div>;
-  }
+  if (loading) return <Loader text="Loading dashboard..." />;
 
   const statCards = [
     { title: 'Total Users', value: data.totalUsers, icon: Users, color: '#00A0FE' },
