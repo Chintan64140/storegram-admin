@@ -2,11 +2,17 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Cookies from 'js-cookie';
+import Loader from './Loader';
 
 export default function AuthGuard({ children }) {
   const router = useRouter();
   const pathname = usePathname();
   const [isAuthorized, setIsAuthorized] = useState(false);
+
+  const clearAdminSession = () => {
+    Cookies.remove('adminToken');
+    Cookies.remove('adminUser');
+  };
 
   useEffect(() => {
     const token = Cookies.get('adminToken');
@@ -14,7 +20,8 @@ export default function AuthGuard({ children }) {
     
     if (!token || !userStr) {
       if (pathname !== '/login') {
-        router.push('/login');
+        clearAdminSession();
+        router.replace('/login');
       } else {
         setIsAuthorized(true);
       }
@@ -24,16 +31,18 @@ export default function AuthGuard({ children }) {
     try {
       const user = JSON.parse(userStr);
       if (user.role !== 'ADMIN') {
-        router.push('/login');
+        clearAdminSession();
+        router.replace('/login');
       } else {
         if (pathname === '/login') {
-          router.push('/');
+          router.replace('/');
         } else {
           setIsAuthorized(true);
         }
       }
-    } catch (e) {
-      router.push('/login');
+    } catch {
+      clearAdminSession();
+      router.replace('/login');
     }
   }, [pathname, router]);
 

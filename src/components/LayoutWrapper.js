@@ -8,7 +8,7 @@ export default function LayoutWrapper({ children }) {
 
   return (
     <div className="min-h-screen w-full bg-background">
-      <Sidebar />
+      {!isLoginPage ? <Sidebar /> : null}
       <main
         className={
           isLoginPage

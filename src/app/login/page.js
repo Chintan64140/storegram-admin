@@ -16,20 +16,30 @@ export default function Login() {
     event.preventDefault();
     setError('');
     setLoading(true);
+    Cookies.remove('adminToken');
+    Cookies.remove('adminUser');
 
     try {
       const response = await api.post('/auth/login', { email, password });
       const { user, token } = response.data;
 
       if (user.role !== 'ADMIN') {
+        await api.post(
+          '/auth/logout',
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        ).catch(() => {});
         setError('Unauthorized: Admin access required.');
-        setLoading(false);
         return;
       }
 
       Cookies.set('adminToken', token, { expires: 7 });
       Cookies.set('adminUser', JSON.stringify(user), { expires: 7 });
-      router.push('/');
+      router.replace('/');
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed. Please check credentials.');
     } finally {
